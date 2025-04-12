@@ -386,6 +386,4 @@ plot_range_vs_velocity(angle, v0_values)
  
  ```
 [link](https://colab.research.google.com/drive/1fT5uBXRLisprCCJwcDQ3mCgs3HaYkjo6?usp=sharing)
-asqw
-sdafaf
-dzfvdfvs
+
