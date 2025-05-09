@@ -172,6 +172,694 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="problem-2">Problem 2</h1>
+<h1 id="1-theoretical-foundation">1. Theoretical Foundation</h1>
+<h2 id="11-governing-differential-equation">1.1 Governing Differential Equation</h2>
+<p>The motion of a <strong>forced damped pendulum</strong> is described by the second-order nonlinear differential equation:</p>
+<div class="arithmatex">\[
+\frac{d^2\theta}{dt^2} + \gamma \frac{d\theta}{dt} + \omega_0^2 \sin(\theta) = A \cos(\omega t)
+\]</div>
+<p>Where:</p>
+<ul>
+<li><span class="arithmatex">\(\theta(t)\)</span>: Angular displacement (in radians) as a function of time  </li>
+<li><span class="arithmatex">\(\gamma\)</span>: Damping coefficient (viscous damping)  </li>
+<li><span class="arithmatex">\(\omega_0 = \sqrt{\frac{g}{L}}\)</span>: Natural frequency of the pendulum without damping  </li>
+<li><span class="arithmatex">\(A\)</span>: Amplitude of the external periodic driving force (torque per unit mass)  </li>
+<li><span class="arithmatex">\(\omega\)</span>: Driving frequency of the external force  </li>
+<li><span class="arithmatex">\(g\)</span>: Gravitational acceleration  </li>
+<li><span class="arithmatex">\(L\)</span>: Length of the pendulum</li>
+</ul>
+<hr/>
+<h2 id="12-small-angle-approximation">1.2 Small-Angle Approximation</h2>
+<p>For small oscillations (<span class="arithmatex">\(|\theta| \ll 1\)</span>), we use the approximation:</p>
+<div class="arithmatex">\[
+\sin(\theta) \approx \theta
+\]</div>
+<p>Applying this, the nonlinear equation becomes a <strong>linear second-order differential equation</strong>:</p>
+<div class="arithmatex">\[
+\frac{d^2\theta}{dt^2} + \gamma \frac{d\theta}{dt} + \omega_0^2 \theta = A \cos(\omega t)
+\]</div>
+<hr/>
+<h2 id="13-approximate-analytical-solution">1.3 Approximate Analytical Solution</h2>
+<p>The general solution consists of two parts:</p>
+<div class="arithmatex">\[
+\theta(t) = \theta_{\text{hom}}(t) + \theta_{\text{part}}(t)
+\]</div>
+<h3 id="homogeneous-solution">Homogeneous solution:</h3>
+<p>Solve the homogeneous part of the equation:</p>
+<div class="arithmatex">\[
+\frac{d^2\theta}{dt^2} + \gamma \frac{d\theta}{dt} + \omega_0^2 \theta = 0
+\]</div>
+<p>This has a solution of the form:</p>
+<div class="arithmatex">\[
+\theta_{\text{hom}}(t) = e^{-\frac{\gamma}{2} t} \left( C_1 \cos(\omega_d t) + C_2 \sin(\omega_d t) \right)
+\]</div>
+<p>Where:</p>
+<div class="arithmatex">\[
+\omega_d = \sqrt{\omega_0^2 - \left( \frac{\gamma}{2} \right)^2}
+\]</div>
+<p>is the <strong>damped natural frequency</strong>.</p>
+<h3 id="particular-solution">Particular solution:</h3>
+<p>We look for a solution of the form:</p>
+<div class="arithmatex">\[
+\theta_{\text{part}}(t) = B \cos(\omega t - \delta)
+\]</div>
+<p>Substitute into the linearized equation to find:</p>
+<div class="arithmatex">\[
+B = \frac{A}{\sqrt{(\omega_0^2 - \omega^2)^2 + \gamma^2 \omega^2}}
+\]</div>
+<div class="arithmatex">\[
+\tan(\delta) = \frac{\gamma \omega}{\omega_0^2 - \omega^2}
+\]</div>
+<hr/>
+<h2 id="14-resonance-conditions">1.4 Resonance Conditions</h2>
+<p><strong>Resonance</strong> occurs when the driving frequency <span class="arithmatex">\(\omega\)</span> is close to the natural frequency of the system, and the amplitude <span class="arithmatex">\(B\)</span> reaches its maximum.</p>
+<p>From the amplitude formula:</p>
+<div class="arithmatex">\[
+B(\omega) = \frac{A}{\sqrt{(\omega_0^2 - \omega^2)^2 + \gamma^2 \omega^2}}
+\]</div>
+<p>To find the <strong>resonance frequency</strong>, minimize the denominator:</p>
+<div class="arithmatex">\[
+\frac{d}{d\omega} \left[ (\omega_0^2 - \omega^2)^2 + \gamma^2 \omega^2 \right] = 0
+\]</div>
+<p>Solving gives:</p>
+<div class="arithmatex">\[
+\omega_r = \sqrt{\omega_0^2 - \frac{\gamma^2}{2}}
+\]</div>
+<p>So, resonance occurs at a slightly <strong>lower frequency than <span class="arithmatex">\(\omega_0\)</span></strong> due to damping.</p>
+<hr/>
+<h2 id="15-energy-at-resonance">1.5 Energy at Resonance</h2>
+<p>The total energy of the pendulum is given by:</p>
+<div class="arithmatex">\[
+E(t) = \frac{1}{2} m L^2 \left( \left( \frac{d\theta}{dt} \right)^2 + \omega_0^2 \theta^2 \right)
+\]</div>
+<p>At resonance, the amplitude <span class="arithmatex">\(\theta(t)\)</span> increases significantly (in ideal, undamped systems it diverges). However, with damping, a <strong>steady-state oscillation</strong> is reached where the energy input by the driving force <strong>balances the energy lost due to damping</strong>.</p>
+<p>The <strong>power input</strong> from the driving force over one period <span class="arithmatex">\(T = \frac{2\pi}{\omega}\)</span> is:</p>
+<div class="arithmatex">\[
+P_{\text{in}} = \langle F(t) \cdot \frac{d\theta}{dt} \rangle = \langle A \cos(\omega t) \cdot \frac{d\theta}{dt} \rangle
+\]</div>
+<p>In steady state, this equals the <strong>power dissipated by damping</strong>:</p>
+<div class="arithmatex">\[
+P_{\text{diss}} = \gamma \left\langle \left( \frac{d\theta}{dt} \right)^2 \right\rangle
+\]</div>
+<p>At resonance, both energy input and dissipation are maximized, but <strong>amplitude remains finite</strong> due to this balance.</p>
+<hr/>
+<h2 id="2-analysis-of-dynamics">2. Analysis of Dynamics</h2>
+<p>The dynamics of a forced damped pendulum are governed by the nonlinear second-order differential equation:</p>
+<div class="arithmatex">\[
+\frac{d^2\theta}{dt^2} + \gamma\frac{d\theta}{dt} + \omega_0^2\sin(\theta) = A\cos(\omega t)
+\]</div>
+<p>where:<br/>
+- <span class="arithmatex">\(\theta(t)\)</span> is the angular displacement,<br/>
+- <span class="arithmatex">\(\gamma\)</span> is the damping coefficient,<br/>
+- <span class="arithmatex">\(\omega_0\)</span> is the natural frequency of the pendulum,<br/>
+- <span class="arithmatex">\(A\)</span> is the amplitude of the external driving force,<br/>
+- <span class="arithmatex">\(\omega\)</span> is the driving frequency.  </p>
+<hr/>
+<h3 id="21-effects-of-the-damping-coefficient-gamma">2.1 Effects of the Damping Coefficient (<span class="arithmatex">\(\gamma\)</span>)</h3>
+<p>The damping term <span class="arithmatex">\(\gamma\frac{d\theta}{dt}\)</span> resists motion and dissipates energy. As <span class="arithmatex">\(\gamma\)</span> increases:</p>
+<ul>
+<li>The system loses energy more rapidly.  </li>
+<li>Oscillations decay faster in the absence of driving.  </li>
+<li>The amplitude of the steady-state oscillations decreases.  </li>
+<li>The resonance peak in amplitude vs. frequency response becomes broader and lower.</li>
+</ul>
+<p>For high damping, the system may become <strong>overdamped</strong>, where:</p>
+<div class="arithmatex">\[
+\gamma^2 &gt; 4\omega_0^2
+\]</div>
+<p>This leads to a non-oscillatory return to equilibrium. In contrast, <strong>underdamped</strong> motion occurs when:</p>
+<div class="arithmatex">\[
+\gamma^2 &lt; 4\omega_0^2
+\]</div>
+<p>which still allows oscillations but with decaying amplitude.</p>
+<hr/>
+<h3 id="22-effects-of-the-driving-amplitude-a">2.2 Effects of the Driving Amplitude (<span class="arithmatex">\(A\)</span>)</h3>
+<p>The driving amplitude <span class="arithmatex">\(A\)</span> directly affects the energy pumped into the system. Increasing <span class="arithmatex">\(A\)</span> leads to:</p>
+<ul>
+<li>Higher oscillation amplitudes in the steady state.  </li>
+<li>Enhanced nonlinear effects (e.g., deviation from sinusoidal motion).  </li>
+<li>Increased likelihood of chaotic behavior.</li>
+</ul>
+<p>At small <span class="arithmatex">\(A\)</span>, the system behaves linearly. However, when <span class="arithmatex">\(A\)</span> exceeds a certain threshold, the system exhibits <strong>nonlinear and chaotic dynamics</strong>.</p>
+<hr/>
+<h3 id="23-effects-of-the-driving-frequency-omega">2.3 Effects of the Driving Frequency (<span class="arithmatex">\(\omega\)</span>)</h3>
+<p>The response of the pendulum depends critically on the relation between <span class="arithmatex">\(\omega\)</span> and <span class="arithmatex">\(\omega_0\)</span>.</p>
+<ul>
+<li>When <span class="arithmatex">\(\omega \approx \omega_0\)</span>, <strong>resonance</strong> occurs, leading to a maximal energy transfer and large oscillations.  </li>
+<li>For <span class="arithmatex">\(\omega \ll \omega_0\)</span>, the pendulum follows the driving force slowly.  </li>
+<li>For <span class="arithmatex">\(\omega \gg \omega_0\)</span>, the system cannot follow the fast oscillations and the response becomes negligible.</li>
+</ul>
+<p>The resonance frequency is approximately:</p>
+<div class="arithmatex">\[
+\omega_{\text{res}} = \sqrt{\omega_0^2 - \frac{\gamma^2}{2}}
+\]</div>
+<p>which shifts lower with increasing <span class="arithmatex">\(\gamma\)</span>.</p>
+<hr/>
+<h3 id="24-transition-from-regular-to-chaotic-motion">2.4 Transition from Regular to Chaotic Motion</h3>
+<p>As parameters <span class="arithmatex">\((A,\omega,\gamma)\)</span> are varied, the pendulum exhibits a rich spectrum of behaviors:</p>
+<ul>
+<li><strong>Periodic motion</strong>: Motion repeats after fixed time intervals.  </li>
+<li><strong>Quasi-periodic motion</strong>: Two or more incommensurate frequencies coexist, leading to non-repeating but structured motion.  </li>
+<li><strong>Chaotic motion</strong>: Aperiodic, sensitive to initial conditions, and appears random.</li>
+</ul>
+<p>The transition to chaos is often visualized using:</p>
+<ul>
+<li><strong>Phase portraits</strong>: Plots of <span class="arithmatex">\((\theta,\dot{\theta})\)</span>.  </li>
+<li><strong>Poincaré sections</strong>: Discrete sampling at intervals of the driving period <span class="arithmatex">\(T = \frac{2\pi}{\omega}\)</span>.  </li>
+<li><strong>Bifurcation diagrams</strong>: Plot of long-term behavior as a parameter (e.g., <span class="arithmatex">\(A\)</span> or <span class="arithmatex">\(\omega\)</span>) is varied.</li>
+</ul>
+<hr/>
+<h3 id="25-physical-meaning-of-chaos-in-the-pendulum-system">2.5 Physical Meaning of Chaos in the Pendulum System</h3>
+<p>Chaos in this context is <strong>deterministic</strong>, governed by precise equations, yet <strong>unpredictable</strong> due to sensitivity to initial conditions. Physically, this implies:</p>
+<ul>
+<li>Small differences in starting conditions lead to vastly different trajectories.  </li>
+<li>Long-term prediction becomes impossible despite knowing the system.  </li>
+<li>The pendulum does not settle into a fixed pattern or periodic cycle.</li>
+</ul>
+<p>Real-world implications include:</p>
+<ul>
+<li>Difficulty in designing stable systems under oscillatory forces.  </li>
+<li>Necessity of numerical simulations for understanding behavior.  </li>
+<li>Importance in understanding weather systems, heart rhythms, and mechanical stability.</li>
+</ul>
+<hr/>
+<h2 id="3-practical-applications">3. Practical Applications</h2>
+<p>The forced damped pendulum serves as a foundational model for a wide range of real-world systems. Its governing equation:</p>
+<div class="arithmatex">\[
+\frac{d^2\theta}{dt^2}+\gamma\frac{d\theta}{dt}+\omega_0^2\sin(\theta)=A\cos(\omega t)
+\]</div>
+<p>is analogous to many physical systems that involve <strong>restoring forces</strong>, <strong>damping</strong>, and <strong>external driving forces</strong>. Below are key examples and their interpretations.</p>
+<hr/>
+<h3 id="31-energy-harvesting-devices">3.1 Energy Harvesting Devices</h3>
+<p>In vibrational energy harvesters, mechanical components oscillate due to ambient vibrations. These devices often operate like forced damped pendulums.</p>
+<ul>
+<li>The pendulum’s mass-spring system mimics the motion of components in piezoelectric or electromagnetic energy harvesters.</li>
+<li>The <strong>resonance condition</strong> is critical for efficient energy capture:</li>
+</ul>
+<p>$$
+  \omega\approx\omega_0\Rightarrow\text{maximum energy transfer}
+  $$</p>
+<ul>
+<li>The harvested power <span class="arithmatex">\(P\)</span> is related to the amplitude of oscillation and the damping factor <span class="arithmatex">\(\gamma\)</span>:</li>
+</ul>
+<p>$$
+  P\propto\gamma\left(\frac{d\theta}{dt}\right)^2
+  $$</p>
+<p>Efficient harvesters are tuned to match the dominant frequency of environmental vibrations, leveraging the pendulum resonance behavior.</p>
+<hr/>
+<h3 id="32-suspension-bridges-and-mechanical-structures">3.2 Suspension Bridges and Mechanical Structures</h3>
+<p>Large structures like bridges experience oscillations due to wind or traffic, modeled effectively by the forced damped pendulum.</p>
+<ul>
+<li><strong>Tacoma Narrows Bridge collapse (1940)</strong> is a classic case of <strong>resonance-induced failure</strong>.</li>
+<li>Structural components follow equations like:</li>
+</ul>
+<p>$$
+  m\frac{d^2x}{dt^2}+b\frac{dx}{dt}+kx=F\cos(\omega t)
+  $$</p>
+<p>where:
+  - <span class="arithmatex">\(x(t)\)</span>: displacement,
+  - <span class="arithmatex">\(b\)</span>: damping coefficient,
+  - <span class="arithmatex">\(k\)</span>: spring constant,
+  - <span class="arithmatex">\(F\)</span>: driving force amplitude.</p>
+<ul>
+<li>These are mathematically equivalent to the small-angle approximation of the pendulum's equation.</li>
+</ul>
+<p>Engineers use this model to design damping systems and avoid resonance conditions.</p>
+<hr/>
+<h3 id="33-electrical-analog-driven-rlc-circuits">3.3 Electrical Analog: Driven RLC Circuits</h3>
+<p>The RLC circuit, consisting of a resistor (R), inductor (L), and capacitor (C) under a driving voltage, is governed by:</p>
+<div class="arithmatex">\[
+L\frac{d^2q}{dt^2}+R\frac{dq}{dt}+\frac{q}{C}=V_0\cos(\omega t)
+\]</div>
+<ul>
+<li><span class="arithmatex">\(q(t)\)</span>: electric charge (analogous to <span class="arithmatex">\(\theta\)</span>),</li>
+<li><span class="arithmatex">\(R\)</span>: damping (<span class="arithmatex">\(\gamma\)</span>),</li>
+<li><span class="arithmatex">\(\frac{1}{C}\)</span>: restoring force (<span class="arithmatex">\(\omega_0^2\)</span>),</li>
+<li><span class="arithmatex">\(V_0\cos(\omega t)\)</span>: driving voltage (<span class="arithmatex">\(A\cos(\omega t)\)</span>).</li>
+</ul>
+<p>This is <strong>mathematically identical</strong> to the forced damped pendulum in small-angle approximation.</p>
+<p>Applications:
+- Radio tuning circuits,
+- Signal filtering,
+- Power regulation.</p>
+<p>Understanding the pendulum helps interpret electrical resonance, damping effects, and phase shifts.</p>
+<hr/>
+<h3 id="34-biomechanics-human-gait-and-posture-control">3.4 Biomechanics: Human Gait and Posture Control</h3>
+<p>Human movement, such as <strong>leg swings during walking</strong>, is modeled as an inverted forced damped pendulum.</p>
+<ul>
+<li>External forces from muscles drive the system.</li>
+<li>Damping comes from internal friction and joint resistance.</li>
+<li>Restoring forces arise from gravity and tendon elasticity.</li>
+</ul>
+<p>Simplified gait models use:</p>
+<div class="arithmatex">\[
+\frac{d^2\theta}{dt^2}+\gamma\frac{d\theta}{dt}+g\sin(\theta)=A\cos(\omega t)
+\]</div>
+<p>This helps in:
+- Designing prosthetics,
+- Optimizing athletic performance,
+- Preventing falls in the elderly.</p>
+<hr/>
+<h3 id="35-clocks-and-metronomes">3.5 Clocks and Metronomes</h3>
+<p>Pendulums are traditional timekeeping elements. For accurate performance:</p>
+<ul>
+<li>Damping must be minimal,</li>
+<li>Driving force must match energy loss to maintain periodicity.</li>
+</ul>
+<p>Small perturbations can lead to long-term <strong>chaotic drift</strong> if not stabilized.</p>
+<hr/>
+<h3 id="summary-table">Summary Table</h3>
+<table>
+<thead>
+<tr>
+<th>System</th>
+<th>Oscillating Quantity</th>
+<th>Damping (<span class="arithmatex">\(\gamma\)</span>)</th>
+<th>Driving Force (<span class="arithmatex">\(A\cos(\omega t)\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Energy Harvester</td>
+<td>Displacement (<span class="arithmatex">\(x\)</span>)</td>
+<td>Friction/Resistance</td>
+<td>Ambient Vibration</td>
+</tr>
+<tr>
+<td>Suspension Bridge</td>
+<td>Beam position (<span class="arithmatex">\(x\)</span>)</td>
+<td>Air resistance, joints</td>
+<td>Wind, Traffic</td>
+</tr>
+<tr>
+<td>RLC Circuit</td>
+<td>Charge (<span class="arithmatex">\(q\)</span>)</td>
+<td>Electrical resistance (<span class="arithmatex">\(R\)</span>)</td>
+<td>AC Voltage (<span class="arithmatex">\(V_0\cos(\omega t)\)</span>)</td>
+</tr>
+<tr>
+<td>Human Gait</td>
+<td>Leg angle (<span class="arithmatex">\(\theta\)</span>)</td>
+<td>Joint friction</td>
+<td>Muscle activation</td>
+</tr>
+<tr>
+<td>Pendulum Clock</td>
+<td>Angle (<span class="arithmatex">\(\theta\)</span>)</td>
+<td>Air drag</td>
+<td>Escapement mechanism</td>
+</tr>
+</tbody>
+</table>
+<h1 id="4-computational-implementation">4. Computational Implementation</h1>
+<h1 id="forced-damped-pendulum-theoretical-analytical-practical-and-computational-study">Forced Damped Pendulum: Theoretical, Analytical, Practical, and Computational Study</h1>
+<hr/>
+<h2 id="1-theoretical-foundation_1">1. Theoretical Foundation</h2>
+<h3 id="governing-differential-equation">Governing Differential Equation</h3>
+<p>The general equation of motion for a <strong>forced damped pendulum</strong> is:</p>
+<div class="arithmatex">\[
+\frac{d^2\theta}{dt^2} + \gamma\frac{d\theta}{dt} + \omega_0^2\sin(\theta) = A\cos(\omega t)
+\]</div>
+<p>Where:
+- <span class="arithmatex">\(\theta(t)\)</span> is the angular displacement,
+- <span class="arithmatex">\(\gamma\)</span> is the damping coefficient,
+- <span class="arithmatex">\(\omega_0 = \sqrt{\frac{g}{l}}\)</span> is the natural frequency,
+- <span class="arithmatex">\(A\)</span> is the amplitude of the external driving force,
+- <span class="arithmatex">\(\omega\)</span> is the driving frequency.</p>
+<h3 id="small-angle-approximation">Small-Angle Approximation</h3>
+<p>Using the small-angle approximation <span class="arithmatex">\(\sin(\theta) \approx \theta\)</span>, the equation becomes:</p>
+<div class="arithmatex">\[
+\frac{d^2\theta}{dt^2} + \gamma\frac{d\theta}{dt} + \omega_0^2\theta = A\cos(\omega t)
+\]</div>
+<p>This is a linear nonhomogeneous second-order ODE.</p>
+<h3 id="analytical-solution-small-oscillations">Analytical Solution (Small Oscillations)</h3>
+<p>Assuming a steady-state solution of the form:</p>
+<div class="arithmatex">\[
+\theta(t) = \theta_0\cos(\omega t - \delta)
+\]</div>
+<p>Substitute into the differential equation:</p>
+<div class="arithmatex">\[
+-\theta_0\omega^2\cos(\omega t - \delta) + \gamma\theta_0\omega\sin(\omega t - \delta) + \omega_0^2\theta_0\cos(\omega t - \delta) = A\cos(\omega t)
+\]</div>
+<p>Group terms:</p>
+<div class="arithmatex">\[
+\theta_0[(\omega_0^2 - \omega^2)\cos(\omega t - \delta) + \gamma\omega\sin(\omega t - \delta)] = A\cos(\omega t)
+\]</div>
+<p>From this, we derive:</p>
+<div class="arithmatex">\[
+\theta_0 = \frac{A}{\sqrt{(\omega_0^2 - \omega^2)^2 + \gamma^2\omega^2}}
+\]</div>
+<p>And the phase lag:</p>
+<div class="arithmatex">\[
+\tan(\delta) = \frac{\gamma\omega}{\omega_0^2 - \omega^2}
+\]</div>
+<h3 id="resonance-condition">Resonance Condition</h3>
+<p>Resonance occurs when the amplitude is maximized. This happens near:</p>
+<div class="arithmatex">\[
+\omega_{\text{res}} = \sqrt{\omega_0^2 - \frac{\gamma^2}{2}}
+\]</div>
+<h3 id="energy-under-resonance">Energy Under Resonance</h3>
+<p>Energy input from the driving force matches energy lost due to damping. As a result:</p>
+<ul>
+<li>System absorbs maximum power.</li>
+<li>Oscillation amplitude increases sharply if damping is low.</li>
+<li>For large damping, resonance peak flattens.</li>
+</ul>
+<hr/>
+<h2 id="2-analysis-of-dynamics_1">2. Analysis of Dynamics</h2>
+<h3 id="effect-of-damping-coefficient-gamma">Effect of Damping Coefficient <span class="arithmatex">\(\gamma\)</span></h3>
+<ul>
+<li><strong>Low <span class="arithmatex">\(\gamma\)</span></strong>: Sharp resonance, system retains energy longer.</li>
+<li><strong>High <span class="arithmatex">\(\gamma\)</span></strong>: Broader resonance, system dissipates energy quickly.</li>
+<li><strong>Critical damping</strong>: Returns to equilibrium without oscillating.</li>
+<li><strong>Overdamping</strong>: Slow return to equilibrium.</li>
+</ul>
+<h3 id="effect-of-driving-amplitude-a">Effect of Driving Amplitude <span class="arithmatex">\(A\)</span></h3>
+<ul>
+<li>Small <span class="arithmatex">\(A\)</span>: Periodic response with small amplitude.</li>
+<li>Moderate <span class="arithmatex">\(A\)</span>: Nonlinear behavior, multiple frequencies may appear.</li>
+<li>Large <span class="arithmatex">\(A\)</span>: Possible chaotic motion, especially when combined with low <span class="arithmatex">\(\gamma\)</span>.</li>
+</ul>
+<h3 id="effect-of-driving-frequency-omega">Effect of Driving Frequency <span class="arithmatex">\(\omega\)</span></h3>
+<ul>
+<li>If <span class="arithmatex">\(\omega \approx \omega_0\)</span>, resonance amplifies response.</li>
+<li>For <span class="arithmatex">\(\omega \gg \omega_0\)</span> or <span class="arithmatex">\(\omega \ll \omega_0\)</span>, system does not respond significantly.</li>
+</ul>
+<h3 id="transition-to-chaos">Transition to Chaos</h3>
+<p>As parameters (<span class="arithmatex">\(A\)</span>, <span class="arithmatex">\(\omega\)</span>, <span class="arithmatex">\(\gamma\)</span>) vary:
+- The system transitions from periodic → quasi-periodic → chaotic motion.
+- Observed via Poincaré sections and bifurcation diagrams.</p>
+<h3 id="physical-meaning-of-chaos">Physical Meaning of Chaos</h3>
+<ul>
+<li><strong>Sensitive dependence on initial conditions</strong>.</li>
+<li><strong>Long-term unpredictability</strong>.</li>
+<li>Appears in real systems like climate, circuits, mechanical vibrations.</li>
+<li>Deterministic but unpredictable due to nonlinear feedback.</li>
+</ul>
+<hr/>
+<h2 id="3-practical-applications_1">3. Practical Applications</h2>
+<h3 id="real-world-systems-modeled-by-forced-damped-pendulum">Real-World Systems Modeled by Forced Damped Pendulum</h3>
+<ol>
+<li><strong>Energy Harvesters</strong></li>
+<li>Use vibrational input to generate power.</li>
+<li>
+<p>Optimization of resonance critical.</p>
+</li>
+<li>
+<p><strong>Suspension Bridges</strong></p>
+</li>
+<li>Oscillations from wind or traffic.</li>
+<li>
+<p>Damping prevents resonance-based collapses (e.g., Tacoma Narrows Bridge).</p>
+</li>
+<li>
+<p><strong>Electrical Circuits</strong></p>
+</li>
+<li>
+<p>RLC circuits obey same form:
+   $$
+   L\frac{d^2q}{dt^2} + R\frac{dq}{dt} + \frac{1}{C}q = V_0\cos(\omega t)
+   $$</p>
+</li>
+<li>
+<p><strong>Clocks and Gyroscopes</strong></p>
+</li>
+<li>
+<p>Require steady oscillation without resonance or chaotic behavior.</p>
+</li>
+<li>
+<p><strong>Biomechanics</strong></p>
+</li>
+<li>Human joints modeled as damped oscillators for gait analysis and prosthetics.</li>
+</ol>
+<hr/>
+<h2 id="4-computational-implementation_1">4. Computational Implementation</h2>
+<h3 id="differential-equations">Differential Equations</h3>
+<p>We rewrite the second-order ODE:</p>
+<div class="arithmatex">\[
+\frac{d^2\theta}{dt^2} + \gamma\frac{d\theta}{dt} + \omega_0^2\sin(\theta) = A\cos(\omega t)
+\]</div>
+<p>As a system of first-order ODEs:</p>
+<p>Let:
+- <span class="arithmatex">\(\theta_1 = \theta\)</span>
+- <span class="arithmatex">\(\theta_2 = \frac{d\theta}{dt}\)</span></p>
+<p>Then:</p>
+<div class="arithmatex">\[
+\frac{d\theta_1}{dt} = \theta_2
+\]</div>
+<div class="arithmatex">\[
+\frac{d\theta_2}{dt} = -\gamma\theta_2 - \omega_0^2\sin(\theta_1) + A\cos(\omega t)
+\]</div>
+<h3 id="python-code-runge-kutta-4">Python Code (Runge-Kutta 4)</h3>
+<p><img alt="" src="image-2.png"/></p>
+<p><a href="https://colab.research.google.com/drive/1aq9iSMHR_VdrtChVK0f464zilYLGMOz7?usp=sharing">link</a></p>
+<h1 id="5-visualization-results">5. Visualization &amp; Results</h1>
+<h2 id="51-resonance-visualization">5.1 Resonance Visualization</h2>
+<p>To understand resonance in the forced damped pendulum, we analyze the <strong>steady-state amplitude</strong> of the pendulum as a function of the <strong>driving frequency</strong> <span class="arithmatex">\(ω_{\text{drive}}\)</span>.</p>
+<p>The system is governed by the equation:</p>
+<div class="arithmatex">\[
+\ddot{\theta} + \gamma \dot{\theta} + \omega_0^2 \sin(\theta) = A \cos(\omega_{\text{drive}} t)
+\]</div>
+<p>Under small-angle approximation (<span class="arithmatex">\(\sin(\theta) \approx \theta\)</span>), the system behaves approximately like a driven harmonic oscillator. For such systems, the amplitude response is given by:</p>
+<div class="arithmatex">\[
+\theta_{\text{amp}}(\omega_{\text{drive}}) = \frac{A}{\sqrt{(\omega_0^2 - \omega_{\text{drive}}^2)^2 + (\gamma \omega_{\text{drive}})^2}}
+\]</div>
+<p>This amplitude can be plotted against <span class="arithmatex">\(ω_{\text{drive}}\)</span> to visualize resonance, where the peak indicates the resonance frequency.</p>
+<h2 id="52-poincare-sections-and-chaotic-behavior">5.2 Poincaré Sections and Chaotic Behavior</h2>
+<p>To demonstrate chaotic behavior, we use <strong>Poincaré sections</strong>, which are stroboscopic maps of the system taken at times:</p>
+<div class="arithmatex">\[
+t_n = nT, \quad T = \frac{2\pi}{\omega_{\text{drive}}}, \quad n \in \mathbb{N}
+\]</div>
+<p>At each <span class="arithmatex">\(t_n\)</span>, we record the phase space coordinates <span class="arithmatex">\((\theta(t_n), \dot{\theta}(t_n))\)</span>.</p>
+<ul>
+<li>For <strong>periodic motion</strong>, the Poincaré section shows a finite number of discrete points.</li>
+<li>For <strong>quasiperiodic motion</strong>, it forms closed curves (invariant tori).</li>
+<li>For <strong>chaotic motion</strong>, it becomes a scattered, strange attractor.</li>
+</ul>
+<p>These patterns help identify the nature of the dynamics.</p>
+<h2 id="53-sensitivity-to-initial-conditions">5.3 Sensitivity to Initial Conditions</h2>
+<p>A hallmark of chaotic systems is <strong>sensitive dependence on initial conditions</strong>. Consider two trajectories:</p>
+<div class="arithmatex">\[
+\theta_1(0) = \theta_0, \quad \theta_2(0) = \theta_0 + \varepsilon
+\]</div>
+<p>Even for a small <span class="arithmatex">\(\varepsilon\)</span>, the difference:</p>
+<div class="arithmatex">\[
+|\theta_1(t) - \theta_2(t)|
+\]</div>
+<p>grows <strong>exponentially</strong> with time in chaotic regimes:</p>
+<div class="arithmatex">\[
+|\Delta\theta(t)| \sim e^{\lambda t}, \quad \lambda &gt; 0
+\]</div>
+<p>where <span class="arithmatex">\(\lambda\)</span> is the <strong>Lyapunov exponent</strong>.</p>
+<h2 id="54-dynamical-regimes">5.4 Dynamical Regimes</h2>
+<p>By varying parameters like <span class="arithmatex">\(A\)</span>, <span class="arithmatex">\(\gamma\)</span>, and <span class="arithmatex">\(\omega_{\text{drive}}\)</span>, we can observe different dynamical regimes:</p>
+<ul>
+<li><strong>Periodic motion</strong>: The system repeats after a fixed time.</li>
+<li><strong>Quasiperiodic motion</strong>: The motion is not periodic, but never repeats exactly.</li>
+<li><strong>Chaotic motion</strong>: Aperiodic, bounded, and highly sensitive to initial conditions.</li>
+</ul>
+<p>These regimes can be identified using:</p>
+<ul>
+<li><strong>Time series analysis</strong>: <span class="arithmatex">\(\theta(t)\)</span> and <span class="arithmatex">\(\dot{\theta}(t)\)</span> plots.</li>
+<li><strong>Phase diagrams</strong>: plotting <span class="arithmatex">\(\dot{\theta}\)</span> vs. <span class="arithmatex">\(\theta\)</span>.</li>
+<li><strong>Poincaré maps</strong>: sampling the system once every driving period.</li>
+<li><strong>Bifurcation diagrams</strong>: plotting long-term behavior versus a system parameter like <span class="arithmatex">\(A\)</span> or <span class="arithmatex">\(\omega_{\text{drive}}\)</span>.</li>
+</ul>
+<hr/>
+<h2 id="summary-of-plots-to-generate">Summary of Plots to Generate</h2>
+<ul>
+<li>Amplitude vs. <span class="arithmatex">\(ω_{\text{drive}}\)</span> (resonance curve)</li>
+<li>Time series: <span class="arithmatex">\(\theta(t)\)</span>, <span class="arithmatex">\(\dot{\theta}(t)\)</span></li>
+<li>Phase diagram: <span class="arithmatex">\(\dot{\theta}\)</span> vs. <span class="arithmatex">\(\theta\)</span></li>
+<li>Poincaré section: <span class="arithmatex">\((\theta, \dot{\theta})\)</span> at <span class="arithmatex">\(t_n\)</span></li>
+<li>Sensitivity: <span class="arithmatex">\(|\Delta \theta(t)|\)</span> for slightly different initial conditions</li>
+<li>Bifurcation diagram: <span class="arithmatex">\(\theta(t \to \infty)\)</span> vs. <span class="arithmatex">\(A\)</span> or <span class="arithmatex">\(ω_{\text{drive}}\)</span></li>
+</ul>
+<p><img alt="alt text" src="image-3.png"/>
+<img alt="alt text" src="image-4.png"/></p>
+<p><a href="https://colab.research.google.com/drive/1_LjPBADRivat7K0eXJuBNW1gO2pkeqyJ?usp=sharing">link</a></p>
+<h1 id="6-discussion-and-evaluation">6. Discussion and Evaluation</h1>
+<h2 id="61-summary-of-findings">6.1 Summary of Findings</h2>
+<p>Through both theoretical analysis and computational simulations, the forced damped pendulum system has been shown to exhibit a wide variety of dynamical behaviors, ranging from simple periodic oscillations to chaotic motion. Key observations include:</p>
+<ul>
+<li>For <strong>small driving amplitudes</strong> and <strong>low damping</strong>, the motion remains nearly periodic and closely matches the linearized solution of the small-angle approximation.</li>
+<li><strong>Increasing the driving amplitude (<span class="arithmatex">\(A\)</span>)</strong> or <strong>decreasing the damping coefficient (<span class="arithmatex">\(\gamma\)</span>)</strong> leads to a transition into <strong>quasiperiodic</strong> and eventually <strong>chaotic</strong> motion.</li>
+<li>At specific driving frequencies (<span class="arithmatex">\(\omega\)</span>), <strong>resonance</strong> is observed, where the amplitude of oscillation reaches a maximum due to synchronization between the external driving force and the natural frequency of the system.</li>
+<li><strong>Poincaré sections</strong> reveal the emergence of chaotic attractors, and <strong>bifurcation diagrams</strong> illustrate the sensitive dependence on system parameters and initial conditions.</li>
+</ul>
+<h2 id="62-limitations-of-the-model">6.2 Limitations of the Model</h2>
+<p>While insightful, the model is built on certain idealizations:</p>
+<ol>
+<li><strong>Small-Angle Approximation</strong>:</li>
+<li>The approximation <span class="arithmatex">\(\sin(\theta) \approx \theta\)</span> is only valid for small angular displacements (<span class="arithmatex">\(\theta \ll 1\)</span> rad).</li>
+<li>
+<p>This linearization removes the richness of the full nonlinear behavior and can misrepresent the system near resonances or at higher amplitudes.</p>
+</li>
+<li>
+<p><strong>Idealized Driving Force</strong>:</p>
+</li>
+<li>The driving force is modeled as a <strong>pure cosine</strong>: <span class="arithmatex">\(A \cos(\omega t)\)</span>.</li>
+<li>
+<p>Real-world driving forces may not be perfectly periodic or sinusoidal and may include noise or impulses.</p>
+</li>
+<li>
+<p><strong>Linear Damping</strong>:</p>
+</li>
+<li>The damping force is assumed to be proportional to velocity: <span class="arithmatex">\(-\gamma \dot{\theta}\)</span>.</li>
+<li>
+<p>In physical systems, damping can be nonlinear or frequency-dependent.</p>
+</li>
+<li>
+<p><strong>Isolated System</strong>:</p>
+</li>
+<li>The pendulum is considered as a single-degree-of-freedom system.</li>
+<li>Many real-world systems involve <strong>coupled pendulums</strong> or systems with <strong>multiple interacting components</strong>.</li>
+</ol>
+<h2 id="63-possible-model-extensions">6.3 Possible Model Extensions</h2>
+<p>To improve realism and explore more complex behaviors, the following extensions can be considered:</p>
+<h3 id="1-nonlinear-damping">1. Nonlinear Damping</h3>
+<p>Introduce a damping force with nonlinear dependence on velocity:</p>
+<div class="arithmatex">\[
+\text{Damping} = -\gamma_1 \dot{\theta} - \gamma_2 \dot{\theta}^3
+\]</div>
+<p>This can capture drag effects in fluids or energy losses in materials under strain.</p>
+<h3 id="2-non-periodic-driving-force">2. Non-Periodic Driving Force</h3>
+<p>Replace the harmonic driver with non-periodic or even stochastic inputs:</p>
+<ul>
+<li>Pulsed driving: <span class="arithmatex">\(A \cos^3(\omega t)\)</span></li>
+<li>Quasi-periodic forcing: <span class="arithmatex">\(A_1 \cos(\omega_1 t) + A_2 \cos(\omega_2 t)\)</span></li>
+<li>Random forcing: <span class="arithmatex">\(A \cos(\omega t + \phi(t))\)</span>, where <span class="arithmatex">\(\phi(t)\)</span> is a noise function</li>
+</ul>
+<h3 id="3-multi-degree-of-freedom-systems">3. Multi-Degree-of-Freedom Systems</h3>
+<p>Model multiple interacting pendulums or linked oscillators:</p>
+<ul>
+<li>Coupled pendulums:
+  $$
+  \ddot{\theta}_1 + \gamma \dot{\theta}_1 + \omega_0^2 \sin(\theta_1) = k(\theta_2 - \theta_1)
+  $$
+  $$
+  \ddot{\theta}_2 + \gamma \dot{\theta}_2 + \omega_0^2 \sin(\theta_2) = k(\theta_1 - \theta_2)
+  $$</li>
+</ul>
+<p>These models allow exploration of synchronization, wave propagation, and pattern formation in complex systems.</p>
+<hr/>
+<p>Overall, the forced damped pendulum serves as an excellent case study in nonlinear dynamics, chaos theory, and resonance phenomena, and provides a foundation for modeling numerous systems in physics and engineering.</p>
+<h1 id="academic-deliverables-for-simulations-and-analysis">Academic Deliverables for Simulations and Analysis</h1>
+<h2 id="1-introduction">1. Introduction</h2>
+<p>The purpose of this document is to present a detailed overview of the topic of [insert topic], including theoretical foundations, governing equations, and relevant analysis. We will derive key equations and use them in numerical simulations to illustrate the key phenomena in the system.</p>
+<h2 id="2-theoretical-foundations">2. Theoretical Foundations</h2>
+<h3 id="21-governing-equations">2.1. Governing Equations</h3>
+<p>In [insert context], the governing equation is derived from [insert basis, e.g., physical principles, conservation laws]. Consider the general form of the [insert name of equation], which governs the system dynamics.</p>
+<h4 id="heat-diffusion-equation">Heat Diffusion Equation</h4>
+<p>One of the central equations is the heat diffusion equation, given by:</p>
+<div class="arithmatex">\[
+\frac{\partial u}{\partial t} = \alpha \nabla^2 u
+\]</div>
+<p>where:
+- <span class="arithmatex">\(u(x,t)\)</span> is the temperature at point <span class="arithmatex">\(x\)</span> and time <span class="arithmatex">\(t\)</span>.
+- <span class="arithmatex">\(\alpha\)</span> is the thermal diffusivity.
+- <span class="arithmatex">\(\nabla^2\)</span> is the Laplacian operator, which represents spatial second derivatives.</p>
+<p>The Laplacian in one dimension is given by:</p>
+<div class="arithmatex">\[
+\nabla^2 u = \frac{\partial^2 u}{\partial x^2}
+\]</div>
+<h4 id="conservation-of-mass-equation">Conservation of Mass Equation</h4>
+<p>For systems involving fluid dynamics or mass transport, the general mass conservation equation can be written as:</p>
+<div class="arithmatex">\[
+\frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \mathbf{v}) = 0
+\]</div>
+<p>where:
+- <span class="arithmatex">\(\rho\)</span> is the density.
+- <span class="arithmatex">\(\mathbf{v}\)</span> is the velocity field.</p>
+<h3 id="22-boundary-and-initial-conditions">2.2. Boundary and Initial Conditions</h3>
+<p>In most physical problems, boundary conditions define the behavior of the system at the edges of the domain. For heat diffusion in a rod, the boundary conditions can be defined as:</p>
+<h4 id="dirichlet-boundary-condition">Dirichlet Boundary Condition:</h4>
+<div class="arithmatex">\[
+u(0, t) = u(L, t) = 0
+\]</div>
+<p>This specifies that the temperature at both ends of the rod is fixed at 0.</p>
+<h4 id="neumann-boundary-condition">Neumann Boundary Condition:</h4>
+<div class="arithmatex">\[
+\frac{\partial u}{\partial x}(0, t) = \frac{\partial u}{\partial x}(L, t) = 0
+\]</div>
+<p>This condition sets the gradient of the temperature to zero at both ends, implying no heat flux.</p>
+<h3 id="23-physical-principles">2.3. Physical Principles</h3>
+<h4 id="fouriers-law-of-heat-conduction">Fourier's Law of Heat Conduction</h4>
+<p>Fourier’s law relates the heat flux <span class="arithmatex">\(q\)</span> to the temperature gradient:</p>
+<div class="arithmatex">\[
+q = -k \frac{\partial u}{\partial x}
+\]</div>
+<p>where:
+- <span class="arithmatex">\(k\)</span> is the thermal conductivity.
+- <span class="arithmatex">\(\frac{\partial u}{\partial x}\)</span> is the temperature gradient.</p>
+<h2 id="3-numerical-simulation">3. Numerical Simulation</h2>
+<h3 id="31-finite-difference-method-for-heat-diffusion">3.1. Finite Difference Method for Heat Diffusion</h3>
+<p>To solve the heat diffusion equation numerically, we can use the finite difference method. The method involves discretizing the spatial domain and time into small intervals. The update equation for the temperature at a given time step can be written as:</p>
+<div class="arithmatex">\[
+u_i^{n+1} = u_i^n + \alpha \frac{\Delta t}{(\Delta x)^2} \left( u_{i+1}^n - 2u_i^n + u_{i-1}^n \right)
+\]</div>
+<p>where:
+- <span class="arithmatex">\(u_i^n\)</span> is the temperature at the <span class="arithmatex">\(i\)</span>-th grid point at time step <span class="arithmatex">\(n\)</span>.
+- <span class="arithmatex">\(\Delta t\)</span> is the time step.
+- <span class="arithmatex">\(\Delta x\)</span> is the spatial step.</p>
+<p>The initial condition is typically set to a specific temperature distribution, for example:</p>
+<div class="arithmatex">\[
+u(x, 0) = \begin{cases} 
+T_0, &amp; \text{for } 0 \leq x \leq L/2 \\
+0, &amp; \text{for } L/2 &lt; x \leq L
+\end{cases}
+\]</div>
+<h3 id="32-python-code-for-numerical-simulation">3.2. Python Code for Numerical Simulation</h3>
+<p><img alt="alt text" src="image-6.png"/></p>
+<p><a href="https://colab.research.google.com/drive/1Mijmp1RQXFhts4qJAx_pUavtUP-46vHW?usp=sharing">link</a></p>
+<h2 id="4-results-and-analysis">4. Results and Analysis</h2>
+<h3 id="41-temperature-distribution-over-time">4.1. Temperature Distribution Over Time</h3>
+<p>The temperature distribution over time is described by the following equation:</p>
+<div class="arithmatex">\[
+u(x,t) = \text{Temperature at position } x \text{ and time } t
+\]</div>
+<p>This represents the evolution of temperature as a function of space (<span class="arithmatex">\(x\)</span>) and time (<span class="arithmatex">\(t\)</span>).</p>
+<p>As time progresses, the heat pulse spreads out. The system approaches a steady-state solution as <span class="arithmatex">\(t \to \infty\)</span>. The steady-state temperature distribution across the rod becomes uniform, which can be expressed as:</p>
+<div class="arithmatex">\[
+\lim_{t \to \infty} u(x,t) = 0
+\]</div>
+<p>This represents the final state where the temperature of the rod reaches equilibrium.</p>
+<h3 id="42-heat-diffusion-phenomenon">4.2. Heat Diffusion Phenomenon</h3>
+<p>The key phenomenon in heat diffusion is the spreading of the heat pulse due to the material's thermal diffusivity, denoted by <span class="arithmatex">\(\alpha\)</span>. Over time, the temperature gradient decreases, and the system reaches thermal equilibrium, where no further temperature changes occur. This equilibrium occurs when the heat flow is balanced, and the temperature becomes uniform across the rod.</p>
+<h2 id="5-conclusion">5. Conclusion</h2>
+<p>In this document, we derived and solved the heat diffusion equation using numerical methods. We illustrated the diffusion process with a Python simulation, showing how an initial temperature distribution evolves over time. The results demonstrated how heat spreads across the rod and how the system reaches a uniform temperature as the heat pulse diffuses.</p>
+<h2 id="6-engineering-applications">6. Engineering Applications</h2>
+<p>This methodology and these results have broad applications in various engineering fields, such as:</p>
+<ol>
+<li>
+<p><strong>Heat Management in Electrical Components:</strong>
+   The heat diffusion model can be applied to understand and control heat generation in electrical components like resistors, capacitors, and microprocessors.</p>
+</li>
+<li>
+<p><strong>Design of Thermal Insulation Systems:</strong>
+   By analyzing the heat diffusion process, we can optimize thermal insulation systems to minimize heat transfer and improve energy efficiency in buildings and machinery.</p>
+</li>
+<li>
+<p><strong>Analysis of Heat Transfer in Materials:</strong>
+   Heat diffusion models help in understanding how heat moves through different materials, which is important in materials science, metallurgy, and other fields.</p>
+</li>
+</ol>
+<h2 id="7-future-work">7. Future Work</h2>
+<p>Future simulations could extend the current model by exploring more complex scenarios, such as:</p>
+<ol>
+<li>
+<p><strong>Non-linear Diffusion Models:</strong>
+   In real-world applications, heat diffusion may not always be linear. Non-linear models can be implemented to describe more complex behaviors, such as heat sources that depend on temperature.</p>
+</li>
+<li>
+<p><strong>More Complex Boundary Conditions:</strong>
+   The current model uses simple boundary conditions (Dirichlet and Neumann). Future work could include convective heat transfer or other boundary conditions that better reflect real-world systems.</p>
+</li>
+<li>
+<p><strong>Extension to Two or Three Dimensions:</strong>
+   While the current model is one-dimensional, it could be extended to two or three dimensions to simulate heat diffusion in more complex geometries, such as rods, plates, or 3D objects.</p>
+</li>
+</ol>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
