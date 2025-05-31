@@ -611,8 +611,7 @@ L\frac{d^2q}{dt^2}+R\frac{dq}{dt}+\frac{q}{C}=V_0\cos(\omega t)
 \frac{d\theta_2}{dt} = -\gamma\theta_2 - \omega_0^2\sin(\theta_1) + A\cos(\omega t)
 \]</div>
 <h3 id="python-code-runge-kutta-4">Python Code (Runge-Kutta 4)</h3>
-<p><img alt="" src="image-2.png"/></p>
-<p><a href="https://colab.research.google.com/drive/1aq9iSMHR_VdrtChVK0f464zilYLGMOz7?usp=sharing">link</a></p>
+<p><img alt="alt text" src="../image-1.png"/></p>
 <h1 id="5-visualization-results">5. Visualization &amp; Results</h1>
 <h2 id="51-resonance-visualization">5.1 Resonance Visualization</h2>
 <p>To understand resonance in the forced damped pendulum, we analyze the <strong>steady-state amplitude</strong> of the pendulum as a function of the <strong>driving frequency</strong> <span class="arithmatex">\(ω_{\text{drive}}\)</span>.</p>
@@ -675,9 +674,108 @@ t_n = nT, \quad T = \frac{2\pi}{\omega_{\text{drive}}}, \quad n \in \mathbb{N}
 <li>Sensitivity: <span class="arithmatex">\(|\Delta \theta(t)|\)</span> for slightly different initial conditions</li>
 <li>Bifurcation diagram: <span class="arithmatex">\(\theta(t \to \infty)\)</span> vs. <span class="arithmatex">\(A\)</span> or <span class="arithmatex">\(ω_{\text{drive}}\)</span></li>
 </ul>
-<p><img alt="alt text" src="image-3.png"/>
-<img alt="alt text" src="image-4.png"/></p>
-<p><a href="https://colab.research.google.com/drive/1_LjPBADRivat7K0eXJuBNW1gO2pkeqyJ?usp=sharing">link</a></p>
+<p><img alt="alt text" src="../image-2.png"/>
+<img alt="alt text" src="../image-3.png"/></p>
+<h3 id="pendulum-simulation-summary">Pendulum Simulation Summary:</h3>
+<p>The pendulum is modeled by the nonlinear ODE:</p>
+<div class="arithmatex">\[
+\ddot{\theta} + b \dot{\theta} + \frac{g}{L} \sin(\theta) = A \cos(\omega t)
+\]</div>
+<p>where:
+- <span class="arithmatex">\(\\theta\)</span> = angle (rad)
+- <span class="arithmatex">\(\\dot{\\theta}\)</span> = angular velocity (rad/s)
+- <span class="arithmatex">\(b\)</span> = damping coefficient
+- <span class="arithmatex">\(g = 9.81\\, m/s^2\)</span> (gravity)
+- <span class="arithmatex">\(L = 1.0\\, m\)</span> (pendulum length)
+- <span class="arithmatex">\(A\)</span> = forcing amplitude
+- <span class="arithmatex">\(\\omega\)</span> = forcing frequency</p>
+<p>Scenarios simulated:
+1. Pure pendulum: <span class="arithmatex">\(b=0\)</span>, <span class="arithmatex">\(A=0\)</span>
+2. Damped pendulum: <span class="arithmatex">\(b \\approx 0.37\)</span>, <span class="arithmatex">\(A=0\)</span>
+3. Forced pendulum: <span class="arithmatex">\(b=0\)</span>, <span class="arithmatex">\(A \\approx 1.75\)</span>, <span class="arithmatex">\(\\omega \\approx 2.75\)</span></p>
+<p>Initial conditions:
+- <span class="arithmatex">\(\\theta(0) = 0.5\)</span> rad
+- <span class="arithmatex">\(\\dot{\\theta}(0) = 0\)</span></p>
+<p>Time span: 0 to 30 seconds.</p>
+<p>Outputs:
+- Plot of <span class="arithmatex">\(\\theta(t)\)</span> vs time
+- Phase diagram: <span class="arithmatex">\(\\theta\)</span> vs <span class="arithmatex">\(\\dot{\\theta}\)</span></p>
+<p>"""</p>
+<p><img alt="alt text" src="../image-4.png"/></p>
+<pre><code class="language-python"># Install necessary libraries (only if not already installed)
+!pip install matplotlib numpy scipy --quiet
+
+# --- Imports ---
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.integrate import solve_ivp
+
+# --- Pendulum models ---
+def pure_pendulum(t, y):
+    theta, omega = y
+    dydt = [omega, -np.sin(theta)]
+    return dydt
+
+def damped_pendulum(t, y, b):
+    theta, omega = y
+    dydt = [omega, -b * omega - np.sin(theta)]
+    return dydt
+
+def forced_pendulum(t, y, A, omega_d):
+    theta, omega = y
+    dydt = [omega, -0.5 * omega - np.sin(theta) + A * np.cos(omega_d * t)]
+    return dydt
+
+# --- Time vector ---
+t = np.linspace(0, 30, 3000)
+
+# --- Solve each system ---
+sol_pure = solve_ivp(pure_pendulum, [0, 30], [0.5, 0], t_eval=t)
+sol_damped = solve_ivp(damped_pendulum, [0, 30], [0.5, 0], t_eval=t, args=(0.35,))
+sol_forced = solve_ivp(forced_pendulum, [0, 30], [0.5, 0], t_eval=t, args=(1.5, 2.3))
+
+# --- Plotting ---
+fig, axs = plt.subplots(3, 2, figsize=(14, 10))
+fig.suptitle("Pendulum Dynamics with Random Parameters", fontsize=14)
+
+# Pure pendulum
+axs[0, 0].plot(sol_pure.t, sol_pure.y[0])
+axs[0, 0].set_title("Pure pendulum (b=0, A=0) - Angle vs Time")
+axs[0, 0].set_xlabel("Time (s)")
+axs[0, 0].set_ylabel("Angle (rad)")
+
+axs[0, 1].plot(sol_pure.y[0], sol_pure.y[1])
+axs[0, 1].set_title("Pure pendulum (b=0, A=0) - Phase Diagram")
+axs[0, 1].set_xlabel("Angle (rad)")
+axs[0, 1].set_ylabel("Angular velocity (rad/s)")
+
+# Damped pendulum
+axs[1, 0].plot(sol_damped.t, sol_damped.y[0])
+axs[1, 0].set_title("Damped pendulum (b=0.44, A=0) - Angle vs Time")
+axs[1, 0].set_xlabel("Time (s)")
+axs[1, 0].set_ylabel("Angle (rad)")
+
+axs[1, 1].plot(sol_damped.y[0], sol_damped.y[1])
+axs[1, 1].set_title("Damped pendulum (b=0.44, A=0) - Phase Diagram")
+axs[1, 1].set_xlabel("Angle (rad)")
+axs[1, 1].set_ylabel("Angular velocity (rad/s)")
+
+# Forced pendulum
+axs[2, 0].plot(sol_forced.t, sol_forced.y[0])
+axs[2, 0].set_title("Forced pendulum (b=0, A=1.93, ω=2.46) - Angle vs Time")
+axs[2, 0].set_xlabel("Time (s)")
+axs[2, 0].set_ylabel("Angle (rad)")
+
+axs[2, 1].plot(sol_forced.y[0], sol_forced.y[1])
+axs[2, 1].set_title("Forced pendulum (b=0, A=1.93, ω=2.46) - Phase Diagram")
+axs[2, 1].set_xlabel("Angle (rad)")
+axs[2, 1].set_ylabel("Angular velocity (rad/s)")
+
+plt.tight_layout(rect=[0, 0, 1, 0.96])
+plt.savefig("pendulum_dynamics_unique.jpg", format="jpg")
+plt.show()
+
+</code></pre>
 <h1 id="6-discussion-and-evaluation">6. Discussion and Evaluation</h1>
 <h2 id="61-summary-of-findings">6.1 Summary of Findings</h2>
 <p>Through both theoretical analysis and computational simulations, the forced damped pendulum system has been shown to exhibit a wide variety of dynamical behaviors, ranging from simple periodic oscillations to chaotic motion. Key observations include:</p>
@@ -810,8 +908,7 @@ T_0, &amp; \text{for } 0 \leq x \leq L/2 \\
 \end{cases}
 \]</div>
 <h3 id="32-python-code-for-numerical-simulation">3.2. Python Code for Numerical Simulation</h3>
-<p><img alt="alt text" src="image-6.png"/></p>
-<p><a href="https://colab.research.google.com/drive/1Mijmp1RQXFhts4qJAx_pUavtUP-46vHW?usp=sharing">link</a></p>
+<p><img alt="alt text" src="../heat_diffusion_unique.jpg"/></p>
 <h2 id="4-results-and-analysis">4. Results and Analysis</h2>
 <h3 id="41-temperature-distribution-over-time">4.1. Temperature Distribution Over Time</h3>
 <p>The temperature distribution over time is described by the following equation:</p>
