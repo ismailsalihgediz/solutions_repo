@@ -537,9 +537,7 @@ $$
 
 ### Python Code (Runge-Kutta 4)
 
-![](image-2.png)
-
-[link](https://colab.research.google.com/drive/1aq9iSMHR_VdrtChVK0f464zilYLGMOz7?usp=sharing)
+![alt text](image-1.png)
 
 # 5. Visualization & Results
 
@@ -625,10 +623,123 @@ These regimes can be identified using:
 - Sensitivity: $|\Delta \theta(t)|$ for slightly different initial conditions
 - Bifurcation diagram: $\theta(t \to \infty)$ vs. $A$ or $ω_{\text{drive}}$
 
+![alt text](image-2.png)
 ![alt text](image-3.png)
+
+
+
+
+### Pendulum Simulation Summary:
+
+The pendulum is modeled by the nonlinear ODE:
+
+$$
+\ddot{\theta} + b \dot{\theta} + \frac{g}{L} \sin(\theta) = A \cos(\omega t)
+$$
+
+where:
+- $\\theta$ = angle (rad)
+- $\\dot{\\theta}$ = angular velocity (rad/s)
+- $b$ = damping coefficient
+- $g = 9.81\\, m/s^2$ (gravity)
+- $L = 1.0\\, m$ (pendulum length)
+- $A$ = forcing amplitude
+- $\\omega$ = forcing frequency
+
+Scenarios simulated:
+1. Pure pendulum: $b=0$, $A=0$
+2. Damped pendulum: $b \\approx 0.37$, $A=0$
+3. Forced pendulum: $b=0$, $A \\approx 1.75$, $\\omega \\approx 2.75$
+
+Initial conditions:
+- $\\theta(0) = 0.5$ rad
+- $\\dot{\\theta}(0) = 0$
+
+Time span: 0 to 30 seconds.
+
+Outputs:
+- Plot of $\\theta(t)$ vs time
+- Phase diagram: $\\theta$ vs $\\dot{\\theta}$
+
+"""
+
 ![alt text](image-4.png)
 
-[link](https://colab.research.google.com/drive/1_LjPBADRivat7K0eXJuBNW1gO2pkeqyJ?usp=sharing)
+```python
+# Install necessary libraries (only if not already installed)
+!pip install matplotlib numpy scipy --quiet
+
+# --- Imports ---
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.integrate import solve_ivp
+
+# --- Pendulum models ---
+def pure_pendulum(t, y):
+    theta, omega = y
+    dydt = [omega, -np.sin(theta)]
+    return dydt
+
+def damped_pendulum(t, y, b):
+    theta, omega = y
+    dydt = [omega, -b * omega - np.sin(theta)]
+    return dydt
+
+def forced_pendulum(t, y, A, omega_d):
+    theta, omega = y
+    dydt = [omega, -0.5 * omega - np.sin(theta) + A * np.cos(omega_d * t)]
+    return dydt
+
+# --- Time vector ---
+t = np.linspace(0, 30, 3000)
+
+# --- Solve each system ---
+sol_pure = solve_ivp(pure_pendulum, [0, 30], [0.5, 0], t_eval=t)
+sol_damped = solve_ivp(damped_pendulum, [0, 30], [0.5, 0], t_eval=t, args=(0.35,))
+sol_forced = solve_ivp(forced_pendulum, [0, 30], [0.5, 0], t_eval=t, args=(1.5, 2.3))
+
+# --- Plotting ---
+fig, axs = plt.subplots(3, 2, figsize=(14, 10))
+fig.suptitle("Pendulum Dynamics with Random Parameters", fontsize=14)
+
+# Pure pendulum
+axs[0, 0].plot(sol_pure.t, sol_pure.y[0])
+axs[0, 0].set_title("Pure pendulum (b=0, A=0) - Angle vs Time")
+axs[0, 0].set_xlabel("Time (s)")
+axs[0, 0].set_ylabel("Angle (rad)")
+
+axs[0, 1].plot(sol_pure.y[0], sol_pure.y[1])
+axs[0, 1].set_title("Pure pendulum (b=0, A=0) - Phase Diagram")
+axs[0, 1].set_xlabel("Angle (rad)")
+axs[0, 1].set_ylabel("Angular velocity (rad/s)")
+
+# Damped pendulum
+axs[1, 0].plot(sol_damped.t, sol_damped.y[0])
+axs[1, 0].set_title("Damped pendulum (b=0.44, A=0) - Angle vs Time")
+axs[1, 0].set_xlabel("Time (s)")
+axs[1, 0].set_ylabel("Angle (rad)")
+
+axs[1, 1].plot(sol_damped.y[0], sol_damped.y[1])
+axs[1, 1].set_title("Damped pendulum (b=0.44, A=0) - Phase Diagram")
+axs[1, 1].set_xlabel("Angle (rad)")
+axs[1, 1].set_ylabel("Angular velocity (rad/s)")
+
+# Forced pendulum
+axs[2, 0].plot(sol_forced.t, sol_forced.y[0])
+axs[2, 0].set_title("Forced pendulum (b=0, A=1.93, ω=2.46) - Angle vs Time")
+axs[2, 0].set_xlabel("Time (s)")
+axs[2, 0].set_ylabel("Angle (rad)")
+
+axs[2, 1].plot(sol_forced.y[0], sol_forced.y[1])
+axs[2, 1].set_title("Forced pendulum (b=0, A=1.93, ω=2.46) - Phase Diagram")
+axs[2, 1].set_xlabel("Angle (rad)")
+axs[2, 1].set_ylabel("Angular velocity (rad/s)")
+
+plt.tight_layout(rect=[0, 0, 1, 0.96])
+plt.savefig("pendulum_dynamics_unique.jpg", format="jpg")
+plt.show()
+
+```
 
 # 6. Discussion and Evaluation
 
@@ -804,9 +915,9 @@ $$
 
 ### 3.2. Python Code for Numerical Simulation
 
-![alt text](image-6.png)
+![alt text](heat_diffusion_unique.jpg)
 
-[link](https://colab.research.google.com/drive/1Mijmp1RQXFhts4qJAx_pUavtUP-46vHW?usp=sharing)
+
 
 ## 4. Results and Analysis
 
