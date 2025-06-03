@@ -279,3 +279,5 @@ imageio.mimsave('interference_5_sources.gif', gif_frames, duration=0.1)
 
 print("GIF saved as 'interference_5_sources.gif'")
 ```
+
+[link](https://colab.research.google.com/drive/1D68D44gWo06zhgYXYIoYZLScIeKd7M7g?usp=sharing)

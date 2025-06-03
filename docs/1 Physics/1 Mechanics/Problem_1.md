@@ -328,7 +328,6 @@ Despite its limitations, understanding the ideal case is essential before progre
 ![alt text](image.png)
 
 ```python
-
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -383,7 +382,7 @@ plot_range_vs_angle(v0_values)
 # Simulate and plot range vs initial velocity for a fixed angle
 v0_values = np.linspace(1, 100, 100)
 plot_range_vs_velocity(angle, v0_values)
- 
  ```
+ 
 [link](https://colab.research.google.com/drive/1fT5uBXRLisprCCJwcDQ3mCgs3HaYkjo6?usp=sharing)
 
