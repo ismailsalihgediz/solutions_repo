@@ -60,7 +60,7 @@ The full motion is described by:
 $$x(t)=v_0\cos\theta\cdot t$$  
 $$y(t)=v_0\sin\theta\cdot t - \frac{1}{2}gt^2$$
 
-These form a **parabolic trajectory** when $y$ is expressed in terms of $x$.
+These form a *parabolic trajectory* when $y$ is expressed in terms of $x$.
 
 ---
 
@@ -77,16 +77,11 @@ Let’s explore how different parameters affect the trajectory:
 
 - The range is maximized at $\theta=45^\circ$ (under symmetric conditions).
 - Complementary angles $\theta$ and $90^\circ-\theta$
-
-
-
-
-
 # 2. Analysis of the Range
 
 ## 2.1 Horizontal Range of a Projectile
 
-The **range** $R$ of a projectile is the horizontal distance it travels before returning to the same vertical level from which it was launched.
+The *range* $R$ of a projectile is the horizontal distance it travels before returning to the same vertical level from which it was launched.
 
 We start from the horizontal and vertical motion equations:
 
@@ -96,14 +91,14 @@ We start from the horizontal and vertical motion equations:
 - Vertical displacement:  
   $$y(t)=v_0\sin\theta\cdot t-\frac{1}{2}gt^2$$
 
-Assuming the projectile lands at the same height it was launched ($y=0$), solve for **time of flight** $T$:
+Assuming the projectile lands at the same height it was launched ($y=0$), solve for *time of flight* $T$:
 
 $$
 0=v_0\sin\theta\cdot T-\frac{1}{2}gT^2 \\
 \Rightarrow T=\frac{2v_0\sin\theta}{g}
 $$
 
-Substitute $T$ into $x(T)$ to find the **range**:
+Substitute $T$ into $x(T)$ to find the *range*:
 
 $$
 R=x(T)=v_0\cos\theta\cdot\frac{2v_0\sin\theta}{g}=\frac{v_0^2\sin(2\theta)}{g}
@@ -119,10 +114,10 @@ $$R=\frac{v_0^2\sin(2\theta)}{g}$$
 
 ### Key observations:
 
-- **$\sin(2\theta)$** is maximum when $2\theta=90^\circ\Rightarrow\theta=45^\circ$.
+- *$\sin(2\theta)$* is maximum when $2\theta=90^\circ\Rightarrow\theta=45^\circ$.
 - For a fixed initial speed $v_0$, the range is symmetric with respect to $\theta=45^\circ$.
   - i.e., $\theta$ and $(90^\circ-\theta)$ give the same range.
-- This relationship forms a **sine curve** when plotted against $\theta$ from $0^\circ$ to $90^\circ$.
+- This relationship forms a *sine curve* when plotted against $\theta$ from $0^\circ$ to $90^\circ$.
 
 ---
 
@@ -130,7 +125,7 @@ $$R=\frac{v_0^2\sin(2\theta)}{g}$$
 
 ### 2.3.1 Initial Velocity $v_0$
 
-- Range increases **quadratically** with initial velocity:
+- Range increases *quadratically* with initial velocity:
 
 $$R\propto v_0^2$$
 
@@ -138,7 +133,7 @@ $$R\propto v_0^2$$
 
 ### 2.3.2 Gravitational Acceleration $g$
 
-- Range is **inversely proportional** to gravity:
+- Range is *inversely proportional* to gravity:
 
 $$R\propto\frac{1}{g}$$
 
@@ -158,7 +153,7 @@ $$
 \boxed{\theta_\text{max}=45^\circ}
 $$
 
-This angle gives the **maximum possible horizontal range** under the assumption that the launch and landing heights are equal and air resistance is negligible.
+This angle gives the *maximum possible horizontal range* under the assumption that the launch and landing heights are equal and air resistance is negligible.
 
 ---
 
@@ -181,10 +176,9 @@ This reinforces the analytical result.
 | Initial speed $v_0$   | $R\propto v_0^2$                                              |
 | Gravity $g$           | $R\propto\frac{1}{g}$                                         |
 
-The analysis shows that range is a function of trigonometric behavior and quadratic scaling, influenced by both kinematic input and environmental factors.
+The analysis shows that range is a function of trigonometric behavior and quadratic scaling, influenced by both kinematic input and environmental factors.
 
 ---
-
 
 
 # 3. Practical Applications
@@ -197,7 +191,7 @@ Projectile motion is not only a theoretical construct but also highly relevant i
 
 ### 3.1.1 Sports
 
-In sports like football, basketball, or golf, players rely on instinct and experience to control **initial velocity** $v_0$ and **launch angle** $\theta$ to achieve a desired range or height.
+In sports like football, basketball, or golf, players rely on instinct and experience to control *initial velocity* $v_0$ and *launch angle* $\theta$ to achieve a desired range or height.
 
 For example:
 
@@ -215,9 +209,9 @@ For example:
 
 Projectile motion governs:
 
-- The **trajectory of artillery shells**
-- **Rocket launches** during early flight phases
-- **Throwing mechanisms** in robotics or machines
+- The *trajectory of artillery shells*
+- *Rocket launches* during early flight phases
+- *Throwing mechanisms* in robotics or machines
 
 Adjusting parameters like $v_0$, $\theta$, and launch height $h$ are critical for targeting.
 
@@ -251,7 +245,7 @@ This model is closer to real-world launches, like a drone dropped from a height 
 
 ## 3.2 Air Resistance and Drag
 
-In realistic scenarios, **air resistance** affects motion significantly, especially at high speeds.
+In realistic scenarios, *air resistance* affects motion significantly, especially at high speeds.
 
 ### 3.2.1 Drag Force Model
 
@@ -266,7 +260,7 @@ Where:
 - $k$ is the drag coefficient,
 - $v$ is the velocity vector.
 
-This leads to **nonlinear** differential equations:
+This leads to *nonlinear* differential equations:
 
 - Horizontal:  
   $$m\frac{dv_x}{dt}=-kv_x$$
@@ -274,7 +268,7 @@ This leads to **nonlinear** differential equations:
 - Vertical:  
   $$m\frac{dv_y}{dt}=-mg-kv_y$$
 
-Solving these yields **exponentially decaying velocities**:
+Solving these yields *exponentially decaying velocities*:
 
 $$
 v_x(t)=v_{0x}e^{-kt/m},\quad v_y(t)=\left(v_{0y}+\frac{mg}{k}\right)e^{-kt/m}-\frac{mg}{k}
@@ -282,9 +276,9 @@ $$
 
 This results in:
 
-- A **shorter range**
-- A **steeper descent**
-- **Asymmetry** in the trajectory path
+- A *shorter range*
+- A *steeper descent*
+- *Asymmetry* in the trajectory path
 
 ---
 
@@ -298,9 +292,13 @@ This results in:
 - No spin or lift forces
 - Point-mass projectile
 
-These assumptions simplify analysis but **break down** in most physical scenarios.
+These assumptions simplify analysis but *break down* in most physical scenarios.
 
 ---
+
+![alt text](image-7.png)
+
+[link](https://colab.research.google.com/drive/1FnrAgjaUZVid3GkKYB2NrMwgeK-wHLLF?usp=sharing)
 
 ### 3.3.2 Realistic Factors Affecting Trajectory
 
@@ -313,76 +311,74 @@ These assumptions simplify analysis but **break down** in most physical scenario
 | Projectile shape/spin | Introduces lift forces (e.g., Magnus effect)      |
 
 ---
-
 ## 3.4 Summary
 
-The classical model of projectile motion serves as a **first approximation** for real systems. However, for accurate prediction and control, especially in sports, aerospace, or engineering, **extended models** incorporating environmental and mechanical factors are necessary.
+The classical model of projectile motion serves as a *first approximation* for real systems. However, for accurate prediction and control, especially in sports, aerospace, or engineering, *extended models* incorporating environmental and mechanical factors are necessary.
 
-Despite its limitations, understanding the ideal case is essential before progressing to more complex analyses.
+Despite its limitations, understanding the ideal case is essential before progressing to more complex analyses.
 
 ---
 
+## phyton-plot
 
-## Phyton-plot
-
-![alt text](image.png)
+![alt text](image-6.png)
 
 ```python
+
 import numpy as np
 import matplotlib.pyplot as plt
 
 # Constants
-g = 9.81  # Gravitational acceleration in m/s^2
+gravity = 9.81  # m/s²
+angles = np.linspace(0, 90, 18)  # launch angles for trajectory plot
+velocities = [10, 20, 30]        # m/s for range vs angle plot
 
-# Function to calculate the range of a projectile
-def calculate_range(v0, angle_deg, g=g):
+# --- Plot 1: Range vs Angle for different velocities ---
+def compute_range(v0, angle_deg, g=gravity):
     angle_rad = np.radians(angle_deg)
-    range_ = (v0**2 * np.sin(2 * angle_rad)) / g
-    return range_
+    return (v0**2) * np.sin(2 * angle_rad) / g
 
-# Function to plot range vs angle for different velocities
-def plot_range_vs_angle(v0_values, g=g):
-    angles = np.linspace(0, 90, 500)  # Angles from 0 to 90 degrees
-    plt.figure(figsize=(10, 6))
-    
-    for v0 in v0_values:
-        ranges = [calculate_range(v0, angle, g) for angle in angles]
-        plt.plot(angles, ranges, label=f'v0 = {v0} m/s')
-    
-    plt.title('Range vs Angle for Different Initial Velocities')
-    plt.xlabel('Angle (degrees)')
-    plt.ylabel('Range (meters)')
-    plt.legend(title="Initial Velocity (m/s)")
-    plt.grid(True)
-    plt.show()
+angle_range = np.linspace(0, 90, 200)
 
-# Function to plot range vs velocity for different angles
-def plot_range_vs_velocity(angle_deg, v0_values, g=g):
-    plt.figure(figsize=(10, 6))
-    
-    ranges = [calculate_range(v0, angle_deg, g) for v0 in v0_values]
-    plt.plot(v0_values, ranges, label=f'Angle = {angle_deg} degrees')
-    
-    plt.title('Range vs Initial Velocity for a Fixed Angle')
-    plt.xlabel('Initial Velocity (m/s)')
-    plt.ylabel('Range (meters)')
-    plt.legend(title="Launch Angle (degrees)")
-    plt.grid(True)
-    plt.show()
+plt.figure(figsize=(12, 5))
 
-# User input for initial conditions
-v0 = float(input("Enter initial velocity (m/s): "))
-angle = float(input("Enter launch angle (degrees): "))
-g = float(input("Enter gravitational acceleration (m/s^2, default 9.81): ") or 9.81)
+# Subplot 1: Range vs Angle
+plt.subplot(1, 2, 1)
+for v in velocities:
+    ranges = [compute_range(v, angle) for angle in angle_range]
+    plt.plot(angle_range, ranges, label=f'v₀ = {v} m/s')
+plt.title('Range vs Launch Angle')
+plt.xlabel('Angle (degrees)')
+plt.ylabel('Range (m)')
+plt.legend()
+plt.grid(True)
+plt.axvline(45, color='gray', linestyle='--', linewidth=0.7)
+plt.text(46, compute_range(velocities[-1], 45), 'Max range at 45°', fontsize=8)
 
-# Simulate and plot range vs angle for different initial velocities
-v0_values = [10, 20, 30, 40, 50]  # Different velocities for comparison
-plot_range_vs_angle(v0_values)
+# --- Plot 2: Trajectory curves for one velocity and different angles ---
+def trajectory(v0, angle_deg, g=gravity):
+    angle_rad = np.radians(angle_deg)
+    t_flight = 2 * v0 * np.sin(angle_rad) / g
+    t = np.linspace(0, t_flight, num=100)
+    x = v0 * np.cos(angle_rad) * t
+    y = v0 * np.sin(angle_rad) * t - 0.5 * g * t**2
+    return x, y
 
-# Simulate and plot range vs initial velocity for a fixed angle
-v0_values = np.linspace(1, 100, 100)
-plot_range_vs_velocity(angle, v0_values)
- ```
- 
-[link](https://colab.research.google.com/drive/1fT5uBXRLisprCCJwcDQ3mCgs3HaYkjo6?usp=sharing)
+# Subplot 2: Trajectories
+plt.subplot(1, 2, 2)
+v0 = 25  # fixed initial speed
+for angle in angles:
+    x, y = trajectory(v0, angle)
+    plt.plot(x, y, label=f'{angle}°')
 
+plt.title(f'Trajectories for v₀ = {v0} m/s')
+plt.xlabel('Distance (m)')
+plt.ylabel('Height (m)')
+plt.legend()
+plt.grid(True)
+
+plt.tight_layout()
+plt.show()
+
+```
+[link](https://colab.research.google.com/drive/1e2QXDho4tA5cKSAJFBBFYzcgtdQKDCPK?usp=sharing)
